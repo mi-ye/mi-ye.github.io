@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="style.css"> <!-- 引入 CSS 文件 -->
+    <style>
+        body {
+            background-color: rgba(255, 0, 0, 0.158);
+            background-image: url('./back.jpg'); /* 设置背景图片 */
+            background-size: cover; /* 使背景图片覆盖整个页面 */
+            background-position: center; /* 将背景图片居中 */
+            background-repeat: no-repeat; /* 防止背景图片重复 */
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        .carousel-container {
+            width: 100%; /* 占据网页宽度的全部 */
+            max-width: 1200px;   /* 可选：限制最大宽度 */
+            margin: 20px auto;   /* 居中 */
+            position: relative;
+            background: #f0f0f0; /* 留白区域填充背景色 */
+        }
+        /* 动态高度（通过 padding-top 控制宽高比） */
+        .carousel-container::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* 16:9 比例 (9/16=56.25%) */
+        }
+        /* 调整：图片容器绝对定位填满轮播容器 */
+        .carousel-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 2s ease-in-out;
+        }
+        .carousel-images img {
+            flex: 0 0 100%; /* 每张图片占据整个容器宽度 */
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center; /* 聚焦图片中心区域 */
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .carousel-controls button {
+            background: rgba(73, 185, 167, 0.589);
+            color: rgba(255, 255, 255, 0.836);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        /* 新增：移动端适配（视情况调整） */
+        @media (max-width: 768px) {
+            .carousel-container {
+                padding-top: 75%; /* 改为 16:9 比例 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>欢迎来到我的个人主页</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="carousel-container">
+        <div class="carousel-images">
+            <img src=".\cat.jpg" alt="方形图片">
+            <img src=".\cat2.jpg" alt="横版图片">
+            <img src=".\cat3.png" alt="横版图片">
+        </div>
+        <div class="carousel-controls">
+            <button onclick="prevImage()">‹</button>
+            <button onclick="nextImage()">›</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>关于我</h2>
+        <img src=".\cat4.jpg" alt="我的照片" style="width:200px; border-radius: 50%;">
+        <p>你好，我是[猫妹几],英文名:Maomeiji,我是一名无业游民。欢迎浏览我的个人网页！</p>
+        <button onclick="showMore()">点击查看更多</button>
+        <p id="more" style="display:none;">这里是更多关于我的信息。</p>
+    </section>
+
+    <section id="projects">
+        <h2>我的项目</h2>
+        <p>这里是我参与过的一些项目：</p>
+        <ul>
+            <li>项目1：作为一只出生在12月18日的喵，我和我妈妈几乎长得一模一样，我的爸爸是一只卡其色长毛喵，他们两个都很温顺</li>
+            <li>项目2：我现在作为王家的一份子</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>联系方式</h2>
+        <p>你可以通过以下方式联系我：</p>
+        <ul>
+            <li>Email: your.email@example.com</li>
+            <li>电话: 123-456-7890</li>
+        </ul>
+    </section>
+    
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel-images img');
+        const totalImages = images.length;
+        const carouselImages = document.querySelector('.carousel-images');
+
+        function showImage(index) {
+            const offset = -index * 100;
+            carouselImages.style.transition = 'none'; // 禁用过渡效果
+            carouselImages.style.transform = `translateX(${offset}%)`;
+            setTimeout(() => {
+                carouselImages.style.transition = 'transform 2s ease-in-out'; // 重新启用过渡效果
+            }, 0);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            showImage(currentIndex);
+        }
+
+        // Auto-play the carousel every 3 seconds
+        setInterval(nextImage, 3000);
+
+        function showMore() {
+            var moreContent = document.getElementById('more');
+            if (moreContent.style.display === 'none') {
+                moreContent.style.display = 'block';
+            } else {
+                moreContent.style.display = 'none';
+            }
+        }
+
+        // Initialize the carousel to show the first image
+        showImage(currentIndex);
+    </script>
+    <footer>
+        <p>&copy; 2025 [你的名字]。所有权利保留。</p>
+    </footer>
+</body>
+</html>

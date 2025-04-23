@@ -1,0 +1,56 @@
+/* 重置一些默认的样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+ 
+header {
+    background-color: #4a90ec;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+ 
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+body {
+    background-color: green;
+}
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+ 
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+ 
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+ 
+h2 {
+    color: #0cc9d6;
+}
+ 
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #16e0e7;
+    color: #fff;
+}
